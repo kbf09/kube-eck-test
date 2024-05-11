@@ -237,21 +237,27 @@ spec:
     syncOptions:
       - ServerSideApply=true
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: kibana
-  namespace: elastic-stack
   annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/affinity: cookie
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+  name: kibana-ingress
+  namespace: default
 spec:
+  ingressClassName: nginx
   rules:
-  - host: kibana.bira.local
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: kibana-kb-http
-          servicePort: 5601
+    - host: kibana.bira.local
+      http:
+        paths:
+          - backend:
+              service:
+                name: quickstart-kb-http
+                port:
+                  number: 5601
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - kibana.bira.local
+      secretName: kibana-server-tls
