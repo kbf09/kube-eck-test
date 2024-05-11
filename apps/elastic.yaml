@@ -252,7 +252,7 @@ spec:
         paths:
           - backend:
               service:
-                name: quickstart-kb-http
+                name: kibana-kb-http
                 port:
                   number: 5601
             path: /
