@@ -256,4 +256,4 @@ spec:
           service:
             name: kibana-kb-http
             port:
-              name: https
+              name: 5601
