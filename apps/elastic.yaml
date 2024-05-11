@@ -94,9 +94,6 @@ spec:
               name: elasticsearch
             
             http:
-              service:
-                spec:
-                  type: LoadBalancer
               tls:
                 selfSignedCertificate:
                   disabled: true
