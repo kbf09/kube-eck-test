@@ -92,8 +92,10 @@ spec:
             #
             elasticsearchRef:
               name: elasticsearch
-              
+
             http:
+              service:
+                type: ClusterIP
               tls:
                 selfSignedCertificate:
                   disabled: true
