@@ -92,7 +92,7 @@ spec:
             #
             elasticsearchRef:
               name: elasticsearch
-            
+              
             http:
               tls:
                 selfSignedCertificate:
@@ -240,3 +240,25 @@ spec:
       selfHeal: true
     syncOptions:
       - ServerSideApply=true
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kibana-ingress
+  namespace: elastic-stack
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: kibana.bira.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: kibana-kb-http
+            port:
+              number: 5601
