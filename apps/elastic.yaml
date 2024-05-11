@@ -93,12 +93,6 @@ spec:
             elasticsearchRef:
               name: elasticsearch
 
-            http:
-              service:
-                type: ClusterIP
-              tls:
-                selfSignedCertificate:
-                  disabled: true
 
             config:
               # Note that these are specific to the namespace into which this example is installed, and are
@@ -253,6 +247,9 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
 spec:
   ingressClassName: nginx
+  tls:
+  - hosts:
+    - kibana.bira.local
   rules:
   - host: kibana.bira.local
     http:
